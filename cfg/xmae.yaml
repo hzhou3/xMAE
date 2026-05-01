@@ -1,0 +1,62 @@
+random_seed: 77               # Random seed for reproducibility across runs
+
+sampling_freq: 100            # Sampling frequency of the signals (Hz)
+seg_len: 10                   # Segment length in seconds
+qual_thre: 0.9                # Minimum quality threshold for including a segment
+dataset: [pulsedb] 
+source: ppg+ecg               # Which modalities are used: "ppg", "ecg", or "ppg+ecg"
+model: xmae                
+
+from_s3:
+  bucket: YOUR_BUCKET         # S3 bucket containing the dataset
+  key: YOUR_PATH/{dataset}/
+
+data:
+  h5_path: null               # Local path to HDF5 dataset (if not loading from S3)
+  num_workers: 32             # Number of workers for DataLoader
+  val_split: 0.05             # Fraction of data used for validation
+  test_split: 0.05            # Fraction of data used for test set
+  type: sample                
+
+to_augment:
+  use: true                   # Whether to apply data augmentation
+
+
+train:
+  batch_size: 512             # Batch size for training
+  lr: 0.0003                  # Initial learning rate
+  epochs: 37                  # Number of training epochs
+  patience: 17                # Early stopping patience (epochs with no improvement)
+  weight_decay: 0.01          # AdamW weight decay regularization
+  warmup_ratio: 0.1           # Fraction of training steps used for LR warmup (cosine schedule)
+
+model_params:
+  latent_dim: 256             # Dimension of embedding space for contrastive/CLIP losses
+  d_model: 256                # Transformer hidden dimension
+  nhead: 8                    # Number of attention heads
+  depth_ecg: 1                # Number of transformer layers for ECG encoder
+  depth_ppg: 2                # Number of transformer layers for PPG encoder
+  depth_bridge: 1             # Number of cross-attention layers between modalities
+  stem_ch: 32                 # Channels in convolutional stem before transformer
+  dropout: 0.1                # Dropout probability
+  use_cross_bridge: true      # Whether to enable ECG↔PPG cross-attention
+  patch_len: 40               # Patch size (samples per token); 0 = auto-select divisor
+
+loss_weights:
+
+  mwm_ppg: 0.0                # Weight for masked waveform modeling (MSE) on PPG
+  mwm_ecg: 1.0                # Weight for masked waveform modeling on ECG
+  mask_ratio_ppg: 0.0         # Fraction of patches to mask in masked modeling
+  mask_ratio_ecg: 0.8        # Fraction of patches to mask in masked modeling
+  same_masks: false           # same masks for ppg and ecg
+  mask_mode: anchor           # Masking strategy: "block", "scatter", or "mixed"
+  use_cl: False                # whether to use currilumn learning
+  
+  cons_warmup_epochs: 5       # no consistency for first 5 epochs
+  cons_schedule: "cosine"     # smoother than linear
+  
+callback:
+  n_plots: 108                # Number of examples to plot per callback run
+  every_n_epochs: 3           # How often (epochs) to run plotting callbacks
+  names: ['masked']           # Which callbacks to enable: "masked", "embed", "recons"
+  mode: 'ecg'
