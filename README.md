@@ -51,4 +51,19 @@ xMAE is built with Python 3.10+ with NVIDIA H200 GPUs; Please follow `Dockerfile
 2. `*.ipynb` can be seen for quick evaluation pipeline.
 
 
+## Cite
+
+If you find this repo or our paper useful, please cite our work
+```
+@misc{xmae,
+      title={Physiology-Aware Masked Cross-Modal Reconstruction for Biosignal Representation Learning}, 
+      author={Hao Zhou and Simon A. Lee and Cyrus Tanade and Keum San Chun and Juhyeon Lee and Migyeong Gwak and Megha Thukral and Justin Sung and Eugene Hwang and Mehrab Bin Morshed and Li Zhu and Viswam Nathan and Md Mahbubur Rahman and Subramaniam Venkatraman and Sharanya Arcot Desai},
+      year={2026},
+      eprint={2605.00973},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2605.00973}, 
+}
+```
+
 
