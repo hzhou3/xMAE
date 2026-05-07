@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 # -----------------------------
 # model config
 # -----------------------------
@@ -366,9 +367,9 @@ class Bridger(nn.Module):
 
 
 
-
-class xMAE(nn.Module):
-    
+class xMAE(
+    nn.Module,
+):
     def __init__(self, cfg: ModelCfg):
         super().__init__()
         self.cfg = cfg
