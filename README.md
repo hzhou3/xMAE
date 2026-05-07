@@ -51,6 +51,7 @@ xMAE is built with Python 3.10+ with NVIDIA H200 GPUs; Please follow `Dockerfile
 `python pretrain.py -c xmae -e experiment-name > output.log`
 
 `-c`: reading cfg from `cfg/xmae.yaml`
+
 `-e`: saving weights to the folder named `experiment-name`
 
 #### 4. Runnables
