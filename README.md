@@ -15,11 +15,13 @@ Official implementation of the paper: xMAE "Physiology-Aware Masked Cross-Modal 
 ##### 0. Repo Structure
 ```
 .
-├── cfg
+├── cfg/
 │   └── xmae.yaml
-├── preprocessing
+├── preprocessing/
 │   └── process.py 
-├── utils
+├── utils/
+│   ├── model_arch/
+│       └── xmae.py
 │   ├── helper_callbacks.py
 │   ├── helper_dataloader.py
 │   ├── helper_general.py
@@ -27,8 +29,6 @@ Official implementation of the paper: xMAE "Physiology-Aware Masked Cross-Modal 
 │   ├── helper_models.py
 │   ├── helper_read_h5.py
 │   └── helper_trainer.py
-├── model_arch
-│   └── xmae.py
 ├── Dockerfile
 ├── eval_0_simple_example.ipynb
 ├── eval_1_pvc.ipynb
@@ -39,12 +39,12 @@ Official implementation of the paper: xMAE "Physiology-Aware Masked Cross-Modal 
 └── xmae_weights_permute.pth
 ```
 #### 1. Environment Setup
-xMAE is built with Python 3.10+ with NVIDIA H200 GPUs; Please follow `Dockerfile` to replicate the enviroment.
+xMAE is built with Python 3.10+ with NVIDIA H200 GPUs; Please follow `Dockerfile` to replicate the environment.
 
 #### 2. Downloading Pretraining Data
 0. Follow [here](https://physionet.org/content/mimic3wdb-matched/1.0/) or [here](https://github.com/pulselabteam/PulseDB) to download the dataset.
 
-1. We provide the script we used for processing the downloaded dataset in `preprocesing\process.py`. You need to update the variables `S3_BUCKET` and `DOWNLOADED_DATA` in the python file. This script includes our full signal preprocessing steps.
+1. We provide the script we used for processing the downloaded dataset in `preprocessing\process.py`. You need to update the variables `S3_BUCKET` and `DOWNLOADED_DATA` in the python file. This script includes our full signal preprocessing steps.
 
 
 #### 3. Pretraining
@@ -60,9 +60,9 @@ xMAE is built with Python 3.10+ with NVIDIA H200 GPUs; Please follow `Dockerfile
 
 
 #### 5. Notes
-0. We are unable to release weights and data due to industrial policy. Thus, `h5` and `pth` files are made-up.
-1. The preprocessing code, and pretrain code should allow interested parties to reproduce xMAE.
-2. `*.ipynb` can be seen for quick evaluation pipeline.
+0. We are unable to release weights and data due to industrial policy. Thus, `h5` and `pth` files are made up.
+1. The preprocessing code and pretraining code should allow interested parties to reproduce xMAE.
+2. `*.ipynb` can be used for a quick evaluation pipeline.
 
 
 
